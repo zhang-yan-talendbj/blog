@@ -1,0 +1,16 @@
+---
+layout: post
+title: "proxy"
+date: 2012-07-11 11:27
+comments: true
+categories: 
+---
+
+set http_proxy=http://xxx.xxx.xxx.xxx:xxx
+xxx地方为你代理服务器的端口号,比如set http_proxy=http://192.128.0.1:1080
+
+如果有密码限制,输入如下两条命令就可以了
+set http_proxy_user=xxx
+set http_proxy_pass=xxx 
+
+[转自](http://dark.iteye.com/blog/64969)

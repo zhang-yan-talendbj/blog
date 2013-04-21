@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Page 2 | 维摩诘饭</title>
+  <meta name="author" content="Bruce Zhang">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="维摩诘饭"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="维摩诘饭" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">维摩诘饭</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2012-07-10T13:17:00.000Z"><a href="/2012/07/10/2012-07-10-git-object/">Jul 10 2012</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2012/07/10/2012-07-10-git-object/">Git对象模型</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>接触git有段时间了,但一直没花太多时间去具体研究它,只会简单的基本日常操作.平时都是用TortoiseGit  .之前买了<Git权威指南>没怎么看,现在是看的时候了.</p>
+<p>说Git对象模型之前,首先要说的是:</p>
+<blockquote>
+<p>   Git与你熟悉的大部分版本控制系统的差别是很大的。也许你熟悉Subversion、CVS、Perforce、Mercurial 等等，他
+   们使用 “增量文件系统” （Delta Storage systems）, 就是说它们存储每次提交(commit)之间的差异。Git正好与之相
+  反，它会把你的每次提交的文件的全部内容（snapshot）都会记录下来。这会是在使用Git时的一个很重要的理念。</p>
+</blockquote>
+<p>我一开始很不理解,记录每次提交的全部内容,多浪费空间呀.后来仔细看了下对象模型,Blob对象,tree对象,commit对象.发现记录全部内容不一定会浪费空间.</p>
+<p>可以做个实验,我把progit.pdf下载后add到git控制之中,然后提交.progit.pdf大约3.6M. .git文件大小也大约3.6M.之后复制progit为20份.工作空间约为77.3M,但提交后,.git文件夹大小还是约3.6M.查看一下.git/objects/ 只有ba开头的文件夹相对比较大,里面有个文件3.6M,应该就是progit.pdf的blob对象.</p>
+<p>通过查看commit的sha值:</p>
+<pre><code>$ git cat-file -p 52e2fb982187ecd774bf8d0d87551e8921caf77f
+tree 8a3f55987eca0fdb05568638991840dc6314060b
+author <span class="keyword">...</span>
+committer <span class="keyword">...</span>
+
+init
+
+$ git cat-file -p 8a3f
+<span class="number">040000</span> tree df6fda95766fede9af86eefe5016aeea0abf3260    test
+
+$ git cat-file -p df6f
+<span class="number">100644</span> blob bacc07541f5d268f0acdc736ebc35f93d323ec60    Copy (<span class="number">10</span>) of progit.pdf
+<span class="number">100644</span> blob bacc07541f5d268f0acdc736ebc35f93d323ec60    Copy (<span class="number">11</span>) of progit.pdf
+<span class="number">100644</span> blob bacc07541f5d268f0acdc736ebc35f93d323ec60    Copy (<span class="number">12</span>) of progit.pdf
+<span class="number">100644</span> blob bacc07541f5d268f0acdc736ebc35f93d323ec60    Copy (<span class="number">13</span>) of progit.pdf
+<span class="number">100644</span> blob bacc07541f5d268f0acdc736ebc35f93d323ec60    Copy (<span class="number">14</span>) of progit.pdf
+</code></pre>
+<p>可见,tree对象只是引用了blob对象(progit.pdf)的sha1值,所以记录全部snapshot也并不一一会浪费空间.</p>
+<p>参考资料:</p>
+<p><a href="http://progit.org/book/zh/" title="ProGit">ProGit</a></p>
+<p><a href="http://www.worldhello.net/gotgit/" title="Git权威指南">Git权威指南</a></p>
+<p><a href="http://gitbook.liuhui998.com/" title="Git Community Book 中文版">Git Community Book 中文版</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2012/07/10/2012-07-10-git-object/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2012-07-07T05:33:00.000Z"><a href="/2012/07/07/2012-07-07-zhi_ding_mu_biao/">Jul 7 2012</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2012/07/07/2012-07-07-zhi_ding_mu_biao/">制定目标</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2>为什么要制定目标</h2>
+<p>如果不制定目标，我会找不到重点，经常花时间在不是很重要的事情上。今天看到这个，想学一学，明天看到另一个，想学一学。这样很没效率。</p>
+<h2>如何制定目标</h2>
+<p>把目标分类，分为周目标，月目标，季度目标，年度目标。<em>季度目标，年度目标不要太详细，而且要根据具体情况进行变动</em></p>
+<h2>如何修改目标</h2>
+<p>修改目标要参考时间日志</p>
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2012/07/07/2012-07-07-zhi_ding_mu_biao/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2012-07-07T05:33:00.000Z"><a href="/2012/07/07/2012-07-07-how-to-install-octopress/">Jul 7 2012</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2012/07/07/2012-07-07-how-to-install-octopress/">how-to-install-octopress</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <hr>
+<p>layout: post
+title: &quot;how-to-install-octopress&quot;
+date: 2012-07-07 13:33
+comments: true</p>
+<h2>categories: </h2>
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2012/07/07/2012-07-07-how-to-install-octopress/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+<nav id="pagination">
+  
+    <a href="/" class="alignleft prev">Prev</a>
+  
+  
+  <div class="clearfix"></div>
+</nav></div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Git/">Git</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+
+  
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2013 Bruce Zhang
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

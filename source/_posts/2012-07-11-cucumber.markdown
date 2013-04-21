@@ -1,0 +1,16 @@
+---
+layout: post
+title: "cucumber"
+date: 2012-07-11 11:26
+comments: true
+categories: 
+---
+
+Scenario Outline
+注意字符要用双引号
+比如
+		Examples: this is a simple example
+    | name | greeting | 
+    | "bruce" | "Hello World, bruce" |
+    | "test" | "Hello World, test" |
+    
