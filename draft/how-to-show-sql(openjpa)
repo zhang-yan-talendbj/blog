@@ -1,0 +1,15 @@
+How do I see the SQL that OpenJPA is executing?
+
+OpenJPA provides configurable channel-based logging, as described in the chapter on Logging. The simplest example of enabling verbose logging is by using the following property in your persistence.xml file:
+
+	<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="1.0">
+	<persistence-unit name="example-logging" transaction-type="RESOURCE_LOCAL">
+	    <properties>
+	        <property name="openjpa.Log" value="SQL=TRACE"/>
+	    </properties>
+	</persistence-unit>
+	</persistence>
+http://openjpa.apache.org/faq.html#FAQ-HowdoIseetheSQLthatOpenJPAisexecuting%253F
+

@@ -1,0 +1,9 @@
+之前弄了一段时间octopress,在github上搭建blog,最近一段时间基本上没写过什么东西...状态不好...
+现在记录一下安装octopress过程中出现的问题
+
+安装ruby,git.
+clone octopress project.(最好在github中fork一个octopress)
+设置编码utf-8,并保证文件的编码为utf-8
+
+总结:之前rake generate时经常出错,自己没有明白错误的原因,浪费了很多时间,反思后发现还是自己解决问题的方法有问题.
+没能发现post文件夹下的文件中有些文件的编码不是utf-8

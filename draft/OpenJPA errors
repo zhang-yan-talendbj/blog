@@ -1,0 +1,10 @@
+Caused by: <openjpa-2.2.0-r422266:1244990 fatal user error> org.apache.openjpa.persistence.InvalidStateException: Attempt to set column "AccessEntity.phone" to two different values: (class java.lang.String)"1860000:", (class java.lang.String)"1860000:123" This can occur when you fail to set both sides of a two-sided relation between objects, or when you map different fields to the same column, but you do not keep the values of these fields in synch.
+
+@Access
+
+
+java.lang.NoClassDefFoundError: Could not initialize class com.caribe.stone.domain.entities.Wife
+@Entity
+public class Wife extends IdEntity {
+去掉 IdEntity就可以了.晕呀
+

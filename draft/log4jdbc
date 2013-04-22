@@ -1,0 +1,8 @@
+			<dependency>
+				<groupId>log4jdbc</groupId>
+				<artifactId>log4jdbc4</artifactId>
+				<version>1.2</version>
+			</dependency>
+log4j openjpa
+http://openejb.979440.n4.nabble.com/Logging-Levels-of-OpenJPA-in-Apache-TomEE-td4641573.html
+
